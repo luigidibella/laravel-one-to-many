@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('admin.types.index') }}">
                     <i class="fa-solid fa-tags"></i>
                     <span>Gestione Tipi</span>
                 </a>

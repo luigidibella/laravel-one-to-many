@@ -32,14 +32,26 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
+        // Valida i dati della richiesta
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ],
+        [
+            'name.required' => 'È richiesto il campo nome',
+            'name.max' => 'Il campo nome deve contenere non piu di :max caratteri'
+        ]);
+
+        // Controlla se la tecnologia esiste già
         $exists = Technology::where('name', $request->name)->first();
-        if($exists){
+        if ($exists) {
             return redirect()->route('admin.technologies.index')->with('error', 'Tecnologia già esistente');
-        }else{
+        } else {
+            // Crea una nuova tecnologia
             $new = new Technology();
             $new->name = $request->name;
             $new->slug = Helper::generateSlug($new->name, Technology::class);
             $new->save();
+
             return redirect()->route('admin.technologies.index')->with('success', 'Tecnologia creata correttamente');
         }
     }

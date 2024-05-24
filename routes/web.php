@@ -27,8 +27,12 @@ Route::middleware(['auth', 'verified'])
     ->group(function(){
         Route::get('/', [DashboardController::class, 'index'])->name('home');
         Route::resource('projects', ProjectController::class);
-        Route::resource('technologies', TechnologyController::class);
-        Route::resource('types', TypeController::class);
+        Route::resource('technologies', TechnologyController::class)->except([
+            'create', 'show', 'edit'
+        ]);
+        Route::resource('types', TypeController::class)->except([
+            'create', 'show', 'edit'
+        ]);
     });
 
 Route::middleware('auth')->group(function () {
