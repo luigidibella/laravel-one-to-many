@@ -26,7 +26,7 @@
             <tr>
               <th scope="row">{{ $item->id }}</th>
               <td>{{ $item->title }}</td>
-              <td> {{ $item->type->name }} </td>
+              <td> {{ $item->type?->name }} </td>
               <td>{{ $item->text }}</td>
               <td>
                 <div class="d-flex">

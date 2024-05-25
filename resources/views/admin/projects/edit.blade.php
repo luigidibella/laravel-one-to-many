@@ -27,7 +27,7 @@
                 }
             @endphp
 
-            <form action="{{ route('admin.projects.update', $project)}}" method="POST">
+            <form id="projectForm" action="{{ route('admin.projects.update', $project)}}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -38,6 +38,18 @@
                         {{ $message }}
                     </small>
                     @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Tipo</label>
+                    <select name="type_id" class="form-select" aria-label="Default select example">
+                        <option value="" selected>Seleziona un tipo</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type->id }}"
+                                @if (old('type_id', $project->type?->id) == $type->id) selected @endif
+                                >{{ $type->name }}</option>
+                            @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -70,10 +82,26 @@
                     @enderror
                 </div> --}}
 
-                <button class="btn btn-success" type="submit">Invia nuovo progetto</button>
-                <button class="btn btn-danger" type="reset">Reset</button>
+                <button class="btn btn-success" type="submit">Modifica progetto</button>
+                <button class="btn btn-danger" type="button" onclick="resetForm()">Reset</button>
 
             </form>
         </div>
     </div>
+
+    <script>
+        function resetForm() {
+            // Seleziona il form
+            const form = document.getElementById('projectForm');
+            // Resetta il form ai valori originali
+            form.reset();
+            // Ripristina i valori originali caricati dalla pagina
+            form.querySelectorAll('input, select, textarea').forEach(field => {
+                if (field.type !== 'submit' && field.type !== 'button' && field.type !== 'hidden') {
+                    field.value = '';
+                }
+            });
+        }
+    </script>
+
 @endsection

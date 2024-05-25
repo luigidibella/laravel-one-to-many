@@ -29,6 +29,7 @@
 
             <form action="{{ route('admin.projects.store')}}" method="POST">
                 @csrf
+
                 <div class="mb-3">
                     <label for="title" class="form-label">Titolo (*)</label>
                     <input name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title') }}">
@@ -37,6 +38,18 @@
                         {{ $message }}
                     </small>
                     @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Tipo</label>
+                    <select name="type_id" class="form-select" aria-label="Default select example">
+                        <option value="" selected>Seleziona un tipo</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type->id }}"
+                                @if (old('type_id') == $type->id) selected @endif
+                                >{{ $type->name }}</option>
+                            @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">

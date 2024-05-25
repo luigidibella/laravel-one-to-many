@@ -4,7 +4,7 @@
 
 <h1 class="text-white">Home della dashboard</h1>
 
-<h2 class="mb-3">Sono presenti <span class="text-white">{{ $count_projects}}</span> progetti.</h2>
+<h2 class="mb-3">Sono presenti <span class="text-white">{{ $count_projects}}</span> progetti</h2>
 
 <div class="card w-50">
     <div class="card-header bg-success-subtle">
