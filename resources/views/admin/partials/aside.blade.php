@@ -31,6 +31,12 @@
                     <span>Gestione Tipi</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.type_projects') }}">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Lista tipi/progetto</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </aside>

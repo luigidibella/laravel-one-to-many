@@ -33,6 +33,10 @@ Route::middleware(['auth', 'verified'])
         Route::resource('types', TypeController::class)->except([
             'create', 'show', 'edit'
         ]);
+
+        // Rotte custom
+        Route::get('type-projects', [TypeController::class, 'typeProjects'])->name('type_projects');
+
     });
 
 Route::middleware('auth')->group(function () {

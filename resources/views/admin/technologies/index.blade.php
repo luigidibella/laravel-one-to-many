@@ -32,11 +32,11 @@
                     <button class="btn btn-success" type="submit">Invia</button>
                 </form>
             </div>
-            <table class="table table-success crud-table">
+            <table class="table crud-table">
                 <thead>
                   <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Azioni</th>
+                    <th scope="col" class="bg-success-subtle">Nome</th>
+                    <th scope="col" class="bg-success-subtle">Azioni</th>
                   </tr>
                 </thead>
                 <tbody>
