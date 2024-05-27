@@ -1,3 +1,7 @@
+@php
+    use App\Functions\Helper;
+@endphp
+
 @extends('layouts.admin')
 
 @section('content')
@@ -17,8 +21,10 @@
             <th scope="col" class="bg-success-subtle">n°</th>
             <th scope="col" class="bg-success-subtle">Titolo</th>
             <th scope="col" class="bg-success-subtle">Tipo</th>
-            <th scope="col" class="bg-success-subtle">Descrizione</th>
-            <th scope="col" class="bg-success-subtle">Azioni</th>
+            <th scope="col" class="bg-success-subtle">Immagine</th>
+            <th scope="col" class="bg-success-subtle">Data</th>
+            {{-- <th scope="col" class="bg-success-subtle">Descrizione</th> --}}
+            <th scope="col" class="bg-success-subtle text-center">Azioni</th>
           </tr>
         </thead>
         <tbody>
@@ -27,9 +33,14 @@
               <th scope="row">{{ $item->id }}</th>
               <td>{{ $item->title }}</td>
               <td> {{ $item->type?->name }} </td>
-              <td>{{ $item->text }}</td>
               <td>
-                <div class="d-flex">
+                <img class="thumb m-0" src="{{ asset('storage/' . $item->image ) }}" alt="" onerror="this.src='/img/no-image.webp'">
+              </td>
+              <td>{{ Helper::formatDate($item->update_at) }}</td>
+              {{-- <td>{{ $item->text }}</td> --}}
+              <td>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ route('admin.projects.show', $item->id) }}" class="btn btn-success me-2"><i class="fa-solid fa-magnifying-glass"></i></a>
                     <a href="{{ route('admin.projects.edit', $item->id) }}" class="btn btn-warning me-2"><i class="fa-regular fa-pen-to-square"></i></a>
                     <form
                         class="d-inline"

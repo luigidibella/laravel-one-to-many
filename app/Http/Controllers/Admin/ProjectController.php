@@ -8,6 +8,7 @@ use App\Models\Project;
 Use App\Functions\Helper;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -37,13 +38,19 @@ class ProjectController extends Controller
     {
         $form_data = $request->all();
 
-        $new_project = new Project();
+        if(array_key_exists('image', $form_data)){
+
+            $image_path = Storage::put('uploads', $form_data['image']);
+            $original_name = $request->file('image')->getClientOriginalName();
+            $form_data['image'] = $image_path;
+            $form_data['image_original_name'] = $original_name;
+        }
 
         $form_data['slug'] = Helper::generateSlug($form_data['title'], new Project());
+
+        $new_project = new Project();
         $new_project->fill($form_data);
         $new_project->save();
-
-        /* dd($new_project); */
 
         return redirect()->route('admin.projects.index', $new_project);
     }
@@ -73,15 +80,23 @@ class ProjectController extends Controller
     {
         $form_data = $request->all();
 
-        if($form_data['title'] == $project->title){
+        if($form_data['title'] === $project->title){
             $form_data['slug'] = $project->slug;
         }else{
             $form_data['slug'] = Helper::generateSlug($form_data['title'],new Project());
         }
 
+        if(array_key_exists('image', $form_data)){
+
+            $image_path = Storage::put('uploads', $form_data['image']);
+            $original_name = $request->file('image')->getClientOriginalName();
+            $form_data['image'] = $image_path;
+            $form_data['image_original_name'] = $original_name;
+        }
+
         $project->update($form_data);
 
-        return redirect()->route('admin.projects.index', $project);
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**

@@ -27,7 +27,7 @@
                 }
             @endphp
 
-            <form action="{{ route('admin.projects.store')}}" method="POST">
+            <form action="{{ route('admin.projects.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -50,6 +50,23 @@
                                 >{{ $type->name }}</option>
                             @endforeach
                     </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Immagine</label>
+                    <input
+                        id="image"
+                        class="form-control"
+                        name="image"
+                        type="file"
+                        onchange="showImage(event)"
+                    >
+                    <img class="thumb" id="thumb" src="/img/no-image.webp" alt="">
+                    @error('image')
+                    <small class="text-danger">
+                        {{ $message }}
+                    </small>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -88,4 +105,13 @@
             </form>
         </div>
     </div>
+
+    <script>
+
+        function showImage(event){
+            const thumb = document.getElementById('thumb');
+            thumb.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+    </script>
 @endsection

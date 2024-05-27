@@ -27,7 +27,7 @@
                 }
             @endphp
 
-            <form id="projectForm" action="{{ route('admin.projects.update', $project)}}" method="POST">
+            <form id="projectForm" action="{{ route('admin.projects.update', $project)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -50,6 +50,24 @@
                                 >{{ $type->name }}</option>
                             @endforeach
                     </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Immagine</label>
+                    <input
+                        id="image"
+                        class="form-control"
+                        name="image"
+                        type="file"
+                        onchange="showImage(event)"
+                    >
+                    <img class="thumb" id="thumb" src="{{ asset('storage/' . $project->image ) }}" alt="" onerror="this.src='/img/no-image.webp'">
+                    <p id="p">{{ $project->image_original_name }}</p>
+                    @error('image')
+                    <small class="text-danger">
+                        {{ $message }}
+                    </small>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -90,6 +108,14 @@
     </div>
 
     <script>
+
+        function showImage(event){
+            const thumb = document.getElementById('thumb');
+            thumb.src = URL.createObjectURL(event.target.files[0]);
+
+            document.getElementById('p').innerText = (event.target.files[0].name);
+        }
+
         function resetForm() {
             // Seleziona il form
             const form = document.getElementById('projectForm');
@@ -102,6 +128,7 @@
                 }
             });
         }
+
     </script>
 
 @endsection
