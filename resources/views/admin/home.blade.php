@@ -1,3 +1,7 @@
+@php
+    use App\Functions\Helper;
+@endphp
+
 @extends('layouts.admin')
 
 @section('content')
@@ -8,7 +12,7 @@
 
 <div class="card w-50">
     <div class="card-header bg-success-subtle">
-        Ultimo progetto
+        Ultimo progetto: {{Helper::formatDate($last_project->updated_at)}}
     </div>
     <div class="card-body">
       <h5 class="card-title">{{ $last_project->title }}</h5>
