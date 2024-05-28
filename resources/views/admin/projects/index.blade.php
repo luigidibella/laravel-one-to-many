@@ -31,7 +31,11 @@
             @foreach ($projects as $item)
             <tr>
               <th scope="row">{{ $item->id }}</th>
-              <td>{{ $item->title }}</td>
+              <td>
+                {{ $item->title }}
+                <hr>
+                {{ $item->text }}
+            </td>
               <td> {{ $item->type?->name }} </td>
               <td>
                 <img class="thumb m-0" src="{{ asset('storage/' . $item->image ) }}" alt="" onerror="this.src='/img/no-image.webp'">
